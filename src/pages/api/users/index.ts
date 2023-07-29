@@ -12,10 +12,13 @@
 
 import { NextApiRequest, NextApiResponse } from 'next/types';
 
+import { ApiMethod } from '@/decorators/method';
 import { IUser } from '@/types/user.d';
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-	const users: Array<unknown> = [];
+import users_json from './users.json'
 
-	return res.status(500).json(users);
-};
+export default ApiMethod('GET')(async (req: NextApiRequest, res: NextApiResponse) => {
+	const users: IUser[] = users_json;
+
+	return res.status(200).json(users);
+});

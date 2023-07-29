@@ -13,13 +13,7 @@ type ModalProps = {
 	};
 };
 
-/* 
-	Modal
-
-	- Ao clicar no wrapper do modal, o modal deve ser fechado, porém esta ação deve ser ignorada caso o usuário clique em qualquer elemento dentro do modal
-*/
-
-export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props }) => {
+export const ModalDeConfirmacao: React.FC<ModalProps> = ({ children, title, isOpen, ...props }) => {
 	function handleCloseClick(e: React.MouseEvent) {
 		props.onClose?.('click', e.target);
 	}
@@ -34,7 +28,6 @@ export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props 
 
 	if (!isOpen) return null;
 
-	// Solução: estava sendo chamado handleCloseClick logo no início da div, impedindo de abrir o Modal 
 	return (
 		<div data-modal-wrapper className={styles.wrapper} onKeyDown={handleKeyDown}>
 			<div data-modal-container>
@@ -47,6 +40,10 @@ export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props 
 				</header>
 
 				{children}
+
+				<div data-modal-body>
+        			<p>Você tem certeza que deseja criar o usuário?</p>
+      			</div>
 
 				{!props.footer?.hidden && (
 					<div data-modal-footer>
