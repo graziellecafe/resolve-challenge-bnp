@@ -36,6 +36,7 @@ export default function Home() {
 			title="Confirmação"
 			onClose={() => setModalIsOpen(false)}
 			onConfirm={() => setModalIsOpen(false)}
+			footer={{ confirmText: 'Criar usuário', cancelText: 'Cancelado'}}
 		  >
 			{modalContent()}
 		  </Modal>
