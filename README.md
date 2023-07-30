@@ -86,7 +86,10 @@ return (
 - Como feito no exercício anterior, mas agora utilizando o método `POST` foi utilizado o método `ApiMethod` do Next.Js para implementação. É declarado uma função com os parâmetros req e res. É extraido do body do objeto req. O body geralmente envia contém os dados enviados na solicitação de um formulário como neste exercício. 
 - Neste caso é atribuido ao tipo `IUSerCreate` que contém uma propriedade id, mas como não queremos atribui-la, utilizamos o `Omit<IUser, "id">` que realiza esta função para nós. 
 - Depois, implementamos um push para adicionar a lista de usuários, reaproveitando os dados nome e email e gerando um id aleatório usando a biblioteca externa `faker`. 
-- Em resumo, esse código é um handler de API para o método HTTP POST que espera um objeto JSON contendo dados do usuário no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuário recebido ao array users, gera um novo id para ele usando faker.number.int(), e retorna o usuário criado como resposta ao cliente
+- Em resumo, esse código é um handler de API para o método HTTP POST que espera um objeto JSON contendo dados do usuário 
+no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuário recebido ao array users, gera um novo id para ele usando faker.number.int(), e retorna o usuário criado como resposta ao cliente
 - Dando continuidade a resolução, o componente `formulário` é implementado. Ele permite ao usuário inserir informações como solicitada de nome e email para criar um novo usuário. Como pedido, é importado a biblioteca `useForm` de `react-hook-form`. 
 - A função implementada onSubmit é a função de submissão do formulário. Ela é chamada quando o usuário envia o formulário. A função envia os dados do usuário para a rota "/api/users/create" usando o método HTTP POST e a função fetch. 
-- Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo 
+- Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo
+<img width="472" alt="usuario_criado" src="https://github.com/graziellecafe/resolve-challenge-bnp/assets/65823579/82f68523-6017-4407-9a3f-a3db46905f4c">
+
