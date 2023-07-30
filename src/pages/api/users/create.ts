@@ -10,16 +10,17 @@
  * - Você deve corrigir a interface IUserCreate em src/types/user.d.ts
  */
 
-import { NextApiRequest, NextApiResponse } from 'next/types';
+import { NextApiRequest, NextApiResponse } from "next/types";
 
-import { ApiMethod } from '@/decorators/method';
-import { IUser, IUserCreate } from '@/types/user.d';
-import { faker } from '@faker-js/faker'
+import { IUser, IUserCreate } from "@/types/user.d";
+import { ApiMethod } from "@/decorators/method";
+import { faker } from "@faker-js/faker";
 
 const users: IUser[] = [];
 
-export default ApiMethod('POST')(async (req: NextApiRequest, res: NextApiResponse) => {
-	const { body } = req;
+export default ApiMethod("POST")(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const { body } = req;
 
     const createUser: IUserCreate = body;
 
@@ -28,10 +29,8 @@ export default ApiMethod('POST')(async (req: NextApiRequest, res: NextApiRespons
       ...createUser,
     });
 
+    console.log("users", users);
+
     res.status(200).json({ user: createUser });
   }
 );
-
-function getId() {
-	return 1; 
-}

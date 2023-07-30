@@ -9,27 +9,78 @@
  * - Lide com os possíveis erros
  */
 
-import styles from '@/styles/formulario.module.css';
+import styles from "@/styles/formulario.module.css";
+
+import { useForm } from "react-hook-form";
+import { IUserCreate } from "@/types/user";
+import { toast } from "react-toastify";
 
 export default function Form() {
-	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserCreate>();
 
-		console.log('submit');
-	}
+  async function onSubmit(data: IUserCreate) {
+    try {
+      const response = await fetch("/api/users/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      toast.success("Usuário criado com sucesso!");
+    } catch (error) {
+      toast.error("Houve um erro ao criar o usuário!");
+      console.error("Houve um erro ao criar o usuário:", error);
+    }
+  }
 
-	return (
-		<div className={styles.container}>
-			<div className={styles.content}>
-				<form onSubmit={handleSubmit}>
-					<input type="text" placeholder="Name" />
-					<input type="email" placeholder="E-mail" />
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="text"
+            placeholder="Name"
+            style={{ border: errors.name ? "1px solid red" : "none" }}
+            {...register("name", { required: true })}
+          />
+          {errors.name && (
+            <p
+              style={{
+                fontSize: "0.8em",
+                color: "red",
+              }}
+            >
+              O nome é obrigatório
+            </p>
+          )}
 
-					<button type="submit" data-type="confirm">
-						Enviar
-					</button>
-				</form>
-			</div>
-		</div>
-	);
+          <input
+            type="email"
+            placeholder="E-mail"
+            style={{ border: errors.email ? "1px solid red" : "none" }}
+            {...register("email", { required: true })}
+          />
+          {errors.email && (
+            <p
+              style={{
+                fontSize: "0.8em",
+                color: "red",
+              }}
+            >
+              O e-mail é obrigatório
+            </p>
+          )}
+
+          <button type="submit" data-type="confirm">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
