@@ -79,7 +79,7 @@ return (
     </div>
 ```
 
-## Exercício 04
+## Exercício 04 - Formulário
 **Problema**: Implemente uma API em /src/pages/api/users/create.ts. Deve ser implementado utilizando a lib react-hook-form. Os campos do formulário devem ser nome e e-mail. Ao dar 'submit', deve ser feito uma request para /api/users/create. 
 
 **Resolução**
@@ -90,6 +90,57 @@ return (
 no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuário recebido ao array users, gera um novo id para ele usando faker.number.int(), e retorna o usuário criado como resposta ao cliente
 - Dando continuidade a resolução, o componente `formulário` é implementado. Ele permite ao usuário inserir informações como solicitada de nome e email para criar um novo usuário. Como pedido, é importado a biblioteca `useForm` de `react-hook-form`. 
 - A função implementada onSubmit é a função de submissão do formulário. Ela é chamada quando o usuário envia o formulário. A função envia os dados do usuário para a rota "/api/users/create" usando o método HTTP POST e a função fetch. 
-- Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo
+- Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo quaando um usuário é criado: 
 <img width="472" alt="usuario_criado" src="https://github.com/graziellecafe/resolve-challenge-bnp/assets/65823579/82f68523-6017-4407-9a3f-a3db46905f4c">
+
+## Exercício 07 - Ciclo de vida de componente
+**Problema**:  Ao atualizar o contador, deverá ser passado o valor atualizado no evento onCounterUpdate, e quando o valor
+ chegar a 10, o Counter deve ser desmontado.
+
+**Resolução**: 
+
+### Ciclo de vida de componente: Como funciona 
+Pesquisa feita antes de se realizar o exercício para o melhor entendimento do solicitado. Em Next.js, o ciclo de vida dos componentes é gerenciado pelo servidor e pelo lado do cliente. 
+
+Aqui está um exemplo de um componente simples em Next Js para entender como o ciclo de vida funciona: 
+
+```js
+import { useState, useEffect } from 'react';
+
+const ExampleComponent = () => {
+  // Estado local para contar o número de atualizações
+  const [count, setCount] = useState(0);
+
+  // useEffect é usado para realizar ações após a renderização do componente
+  useEffect(() => {
+    console.log('Componente montado.');
+
+    // Função de limpeza para ser executada quando o componente é desmontado
+    return () => {
+      console.log('Componente desmontado.');
+    };
+  }, []);
+
+  // Função para manipular o clique do botão
+  const handleButtonClick = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Contagem: {count}</p>
+      <button onClick={handleButtonClick}>Incrementar</button>
+    </div>
+  );
+};
+
+export default ExampleComponent;
+```
+
+A partir do exemplo, seguimos com a implementação no exercício solicitado. 
+- Primeiramente analisamos o componente `Counter` em `components/Counter/index`. Nele está implementado parecido com o exemplo acima encontrado, um contador simples. O primeiro `useEffect` é executado somente após o componente ser montado na fase de montagem. Ele não possui dependências, o que significa que será executado apenas uma vez, assim que o componente é montado.
+- O segundo useEffect é executado sempre que o estado count é atualizado (ou seja, quando o contador é incrementado). Ele possui count como dependência, o que significa que será acionado sempre que count mudar. 
+- É implementado uma condição de forma que o segundo useEffect, como solicitado, será desmontado quando o contador for igual `=== 10`. 
+- Em resumo, o componente Counter é um contador simples que mantém o estado count para controlar o valor do contador. Ele emite eventos personalizados em diferentes estágios do ciclo de vida do componente - "onCounterMount" quando o componente é montado, "onCounterUnmount" quando é desmontado e "onCounterUpdate" quando o valor do contador chega a 10.
+
 
