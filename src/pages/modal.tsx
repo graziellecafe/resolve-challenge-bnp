@@ -14,7 +14,7 @@ export default function Home() {
 
 	function handleModalConfirm() {
 		setModalIsOpen(false);
-		alert('confirmado');
+		alert('Confirmado com sucesso! ');
 	}
 
 	function handleModalClose() {

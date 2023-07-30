@@ -21,6 +21,8 @@ type ModalProps = {
 
 export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props }) => {
 	function handleCloseClick(e: React.MouseEvent) {
+		const isDataModalWrapper = e.target === e.currentTarget; 
+		if(!isDataModalWrapper) return; 
 		props.onClose?.('click', e.target);
 	}
 
@@ -36,7 +38,7 @@ export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props 
 
 	// Solução: estava sendo chamado handleCloseClick logo no início da div, impedindo de abrir o Modal 
 	return (
-		<div data-modal-wrapper className={styles.wrapper} onKeyDown={handleKeyDown}>
+		<div data-modal-wrapper className={styles.wrapper} onClick={handleCloseClick} onKeyDown={handleKeyDown}>
 			<div data-modal-container>
 				<header data-modal-header>
 					<h2>{title}</h2>

@@ -13,6 +13,7 @@ import styles from '@/styles/lista.module.css';
 import { ICity } from '@/types/city.d';
 
 export default function Lista() {
+	const [count, setCount] = useState();
 	const [list, setUsers] = useState<Array<ICity>>([
 		{
 			id: new Date().getTime().toString(),
@@ -35,7 +36,7 @@ export default function Lista() {
 
 	useEffect(() => {
 		getList();
-	}, []);
+	}, []); 
 
 	return (
 		<div className={styles.container}>

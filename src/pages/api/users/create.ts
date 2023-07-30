@@ -14,20 +14,22 @@ import { NextApiRequest, NextApiResponse } from 'next/types';
 
 import { ApiMethod } from '@/decorators/method';
 import { IUser, IUserCreate } from '@/types/user.d';
-import users_json from './users.json'
+import { faker } from '@faker-js/faker'
 
 const users: IUser[] = [];
 
 export default ApiMethod('POST')(async (req: NextApiRequest, res: NextApiResponse) => {
-	const id = getId(); 
-	const name = req?.body?.name; 
-	const email = req?.body?.email; 
+	const { body } = req;
 
-	const user: IUser = {id, name, email}; 
+    const createUser: IUserCreate = body;
 
-    // Retornar uma resposta de sucesso para o cliente.
-    res.status(200).json({ success: true, message: 'Dados recebidos com sucesso!' });
-  } 
+    users.push({
+      id: faker.number.int(),
+      ...createUser,
+    });
+
+    res.status(200).json({ user: createUser });
+  }
 );
 
 function getId() {

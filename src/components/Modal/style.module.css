@@ -55,6 +55,8 @@
 }
 
 .wrapper [data-modal-container] [data-modal-footer] button {
+	background-color: rgb(204, 79, 79); 
+	color: #ffffff; 
 	padding: 0.5rem 1.5rem;
 	border: 1px solid #ccc;
 	border-radius: 8px;

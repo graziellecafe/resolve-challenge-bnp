@@ -2,12 +2,12 @@
     {
         "id": 1, 
         "name": "Grazielle Café",
-        "email": "graziellecafe@gmail.com"
+        "email": "grazielle_cafe@gmail.com"
     },
     {
         "id": 2,
-        "name": "Isabelle Fernanda", 
-        "email": "isabellefernanda@gmail.com"
+        "name": "Queca Viana", 
+        "email": "queca_viana@gmail.com"
     },
     {
         "id": 3,
@@ -15,13 +15,8 @@
         "email": "jade_cafe@gmail.com"
     },
     {
-        "id": 4,
-        "name": "Alisson Albuquerque", 
-        "email": "alisson_albuquerque@gmail.com"
-    },
-    {
-        "id": 5,
-        "name": "Fernando Elias", 
-        "email": "fernando_elias@gmail.com"
+        "id": 6,
+        "name": "Ramon Fernandes", 
+        "email": "ramon_fernandes@gmail.com"
     }
 ]
