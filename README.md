@@ -142,5 +142,27 @@ A partir do exemplo, seguimos com a implementação no exercício solicitado.
 - O segundo useEffect é executado sempre que o estado count é atualizado (ou seja, quando o contador é incrementado). Ele possui count como dependência, o que significa que será acionado sempre que count mudar. 
 - É implementado uma condição de forma que o segundo useEffect, como solicitado, será desmontado quando o contador for igual `=== 10`. 
 - Em resumo, o componente Counter é um contador simples que mantém o estado count para controlar o valor do contador. Ele emite eventos personalizados em diferentes estágios do ciclo de vida do componente - "onCounterMount" quando o componente é montado, "onCounterUnmount" quando é desmontado e "onCounterUpdate" quando o valor do contador chega a 10.
+- No arquivo `ciclo-de-vida`, alteramos de acordo com o entedimento de como o ciclo de vida de um componente acontece os `useEffect` para quando chegar até 10, o componente desmontar: 
 
 
+```js
+  useEffect(() => {
+    const handleCounterMount = () => console.log("onCounterMount");
+    const handleCounterUnmount = () => console.log("onCounterUnmount");
+    const handleCounterUpdate = (event: any) => {
+      const newCount = event.detail;
+      setCount(newCount);
+      if (newCount === 10) setShowCounter(false); // Desmontar o Counter quando o contador atingir 10
+    };
+
+    window.addEventListener("onCounterMount", handleCounterMount);
+    window.addEventListener("onCounterUnmount", handleCounterUnmount);
+    window.addEventListener("onCounterUpdate", handleCounterUpdate);
+
+    return () => {
+      window.removeEventListener("onCounterMount", handleCounterMount);
+      window.removeEventListener("onCounterUnmount", handleCounterUnmount);
+      window.removeEventListener("onCounterUpdate", handleCounterUpdate);
+    };
+  }, []);
+```
