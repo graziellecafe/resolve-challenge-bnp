@@ -12,6 +12,8 @@ import { IToastMessage } from '@/types/toast-message';
 import { ToastMessage } from '@/components/ToastMessage';
 
 export default function ContextApi() {
+
+	
 	const messages: Array<IToastMessage> = [
 		{
 			id: '1',
@@ -32,6 +34,24 @@ export default function ContextApi() {
 	function handleErrorButtonClick() {
 		alert('Method: handleErrorButtonClick not implemented');
 	}
+
+	/* function handleSuccessButtonClick() {
+	addMessage({
+		id: faker.string.uuid(),
+		message: "Mensagem de sucesso",
+		type: "success",
+		});
+	}
+
+	function handleErrorButtonClick() {
+	  addMessage({
+		id: faker.string.uuid(),
+		message: "Mensagem de erro",
+		type: "error",
+	  });
+	}
+	
+	*/
 
 	return (
 		<>

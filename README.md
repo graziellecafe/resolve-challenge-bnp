@@ -93,6 +93,35 @@ no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuá
 - Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo quaando um usuário é criado: 
 <img width="472" alt="usuario_criado" src="https://github.com/graziellecafe/resolve-challenge-bnp/assets/65823579/82f68523-6017-4407-9a3f-a3db46905f4c">
 
+## Exercício 05 - Context API 
+**Problema**: 
+1. Criar um contexto para exibir mensagens de sucesso e erro
+2. Criar um componente para exibir as mensagens
+3. Criar um hook para disparar e consumir as mensagens
+4. Disparar as mensagens a partir dos botões abaixo
+
+**Resolução**
+1. Criar um contexto para exibir mensagens de sucesso e erro
+Foi utilizado o faker para gerar os ids como feito em outros exemplos.
+
+```js
+	const { messages, addMessage } = useToast();
+	function handleSuccessButtonClick() {
+	  addMessage({
+		id: faker.string.uuid(),
+		message: "Mensagem de sucesso",
+		type: "success",
+	  });
+	}
+  
+	function handleErrorButtonClick() {
+	  addMessage({
+		id: faker.string.uuid(),
+		message: "Mensagem de erro",
+		type: "error",
+	  });
+	}
+```
 
 ## Exercício 06 - Página estática 
 **Problema**: Atualmente o conteúdo é geerado no momento em que a requisição é feita. Você deve transformar essa página em uma página estática. A página deve ser gerada no momento da build. A página deve ser atualizada a cada 1 minuto.
