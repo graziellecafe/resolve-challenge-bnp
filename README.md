@@ -93,6 +93,75 @@ no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuá
 - Em caso de sucesso, uma mensagem de sucesso é exibida usando uma biblioteca chamada `toast`. Em caso de erro, uma mensagem de erro é exibida e o erro é impresso no console. Veja o exemplo abaixo quaando um usuário é criado: 
 <img width="472" alt="usuario_criado" src="https://github.com/graziellecafe/resolve-challenge-bnp/assets/65823579/82f68523-6017-4407-9a3f-a3db46905f4c">
 
+
+## Exercício 06 - Página estática 
+**Problema**: Atualmente o conteúdo é geerado no momento em que a requisição é feita. Você deve transformar essa página em uma página estática. A página deve ser gerada no momento da build. A página deve ser atualizada a cada 1 minuto.
+
+**Resolução**:
+### Página estática
+Pesquisa feita antes de se realizar o exercício para o melhor entendimento do solicitado.
+
+1. **Geração da página estática no momento da build**:
+Para transformar a página em uma página estática, você pode usar a funcionalidade de gerar páginas estáticas durante o processo de build no framework Next.js.
+
+2. No arquivo que contém o componente Lista (presumindo que seja um arquivo chamado Lista.tsx ou Lista.js), você deve exportar a função **getStaticProps**. Essa função é utilizada para buscar os dados da API durante o processo de build e, em seguida, passar os dados para o componente Lista.
+
+Aqui está um exemplo de como modificar o código:
+
+```js
+import { useEffect, useState } from 'react';
+import styles from '@/styles/lista.module.css';
+import { ICity } from '@/types/city.d';
+
+export default function Lista({ cities }) {
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h2>Lista de cidades</h2>
+
+        <div data-list-container>
+          {cities.map((city) => (
+            <div data-list-item key={city.id}>
+              {city.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export async function getStaticProps() {
+  try {
+    const response = await fetch('/api/cities/10');
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error('Erro ao obter os dados');
+    }
+
+    return {
+      props: {
+        cities: data,
+      },
+      revalidate: 60, // Revalida a página a cada 1 minuto (60 segundos)
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        cities: [],
+      },
+      revalidate: 60,
+    };
+  }
+}
+```
+
+Utilizando o código de exemplo encontrado foi implemetado no arquivo `pagina-estatica` como informado. 
+
+---
+
 ## Exercício 07 - Ciclo de vida de componente
 **Problema**:  Ao atualizar o contador, deverá ser passado o valor atualizado no evento onCounterUpdate, e quando o valor
  chegar a 10, o Counter deve ser desmontado.
@@ -138,11 +207,11 @@ export default ExampleComponent;
 ```
 
 A partir do exemplo, seguimos com a implementação no exercício solicitado. 
-- Primeiramente analisamos o componente `Counter` em `components/Counter/index`. Nele está implementado parecido com o exemplo acima encontrado, um contador simples. O primeiro `useEffect` é executado somente após o componente ser montado na fase de montagem. Ele não possui dependências, o que significa que será executado apenas uma vez, assim que o componente é montado.
-- O segundo useEffect é executado sempre que o estado count é atualizado (ou seja, quando o contador é incrementado). Ele possui count como dependência, o que significa que será acionado sempre que count mudar. 
-- É implementado uma condição de forma que o segundo useEffect, como solicitado, será desmontado quando o contador for igual `=== 10`. 
-- Em resumo, o componente Counter é um contador simples que mantém o estado count para controlar o valor do contador. Ele emite eventos personalizados em diferentes estágios do ciclo de vida do componente - "onCounterMount" quando o componente é montado, "onCounterUnmount" quando é desmontado e "onCounterUpdate" quando o valor do contador chega a 10.
-- No arquivo `ciclo-de-vida`, alteramos de acordo com o entedimento de como o ciclo de vida de um componente acontece os `useEffect` para quando chegar até 10, o componente desmontar: 
+1. Primeiramente analisamos o componente `Counter` em `components/Counter/index`. Nele está implementado parecido com o exemplo acima encontrado, um contador simples. O primeiro `useEffect` é executado somente após o componente ser montado na fase de montagem. Ele não possui dependências, o que significa que será executado apenas uma vez, assim que o componente é montado.
+2. O segundo useEffect é executado sempre que o estado count é atualizado (ou seja, quando o contador é incrementado). Ele possui count como dependência, o que significa que será acionado sempre que count mudar. 
+3. É implementado uma condição de forma que o segundo useEffect, como solicitado, será desmontado quando o contador for igual `=== 10`. 
+4. Em resumo, o componente Counter é um contador simples que mantém o estado count para controlar o valor do contador. Ele emite eventos personalizados em diferentes estágios do ciclo de vida do componente - "onCounterMount" quando o componente é montado, "onCounterUnmount" quando é desmontado e "onCounterUpdate" quando o valor do contador chega a 10.
+5. No arquivo `ciclo-de-vida`, alteramos de acordo com o entedimento de como o ciclo de vida de um componente acontece os `useEffect` para quando chegar até 10, o componente desmontar: 
 
 
 ```js
