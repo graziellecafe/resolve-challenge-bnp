@@ -24,7 +24,7 @@ export default function Form() {
 
   async function onSubmit(data: IUserCreate) {
     try {
-      const response = await fetch("/api/users/create", {
+      const response = await fetch("http://localhost:8080/api/users/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
