@@ -4,6 +4,7 @@ import Head from "next/head";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { ToastProvider } from "@/contexts/toast.context"
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -13,8 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Teste Front-End - BNP</title>
       </Head>
       <ToastContainer />
+      <ToastProvider>
         <Component {...pageProps} />
-
+      </ToastProvider>
     </>
   );
 }

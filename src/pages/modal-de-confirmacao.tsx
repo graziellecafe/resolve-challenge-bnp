@@ -23,6 +23,12 @@ export default function Home() {
 	  	</div>
 	)
 
+	const modalContent2 = () => (
+		<div data-modal-content className={styles["container"]}>
+			<p>Teste para modal dinâmico</p>
+	  	</div>
+	)
+
 	return (
 		<>
 		  <main className={styles.container}>

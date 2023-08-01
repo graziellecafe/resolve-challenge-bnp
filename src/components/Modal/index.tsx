@@ -20,6 +20,7 @@ type ModalProps = {
 */
 
 export const Modal: React.FC<ModalProps> = ({ children, title, isOpen, ...props }) => {
+	// hadle: denotar uma funcao ou método que é reponsável por lidar com um evento epecíifco
 	function handleCloseClick(e: React.MouseEvent) {
 		const isDataModalWrapper = e.target === e.currentTarget; 
 		if(!isDataModalWrapper) return; 

@@ -109,8 +109,10 @@ no corpo da solicitação. Quando a rota é acionada, o código adiciona o usuá
 4. Disparar as mensagens a partir dos botões abaixo
 
 **Resolução**
-1. Criar um contexto para exibir mensagens de sucesso e erro
-Foi utilizado o faker para gerar os ids como feito em outros exemplos.
+Foi utizado o context useToast() criado em 
+```js
+import { useToast } from "@/contexts/toast.context";
+```
 
 ```js
 	const { messages, addMessage } = useToast();
@@ -129,6 +131,36 @@ Foi utilizado o faker para gerar os ids como feito em outros exemplos.
 		type: "error",
 	  });
 	}
+```
+
+e a criação / chamada do `useToast`
+```js
+
+export const ToastProvider = ({ children }: ToastProviderProps) => {
+  const [messages, setMessages] = useState<
+    { id: string; message: string; type: "success" | "error" }[]
+  >([]);
+
+  const addMessage = (message: {
+    id: string;
+    message: string;
+    type: "success" | "error";
+  }) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  };
+
+  const removeMessage = (id: string) => {
+    setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id));
+  };
+
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (context === null) {
+    throw new Error("useToast must be used within a ToastProvider");
+  }
+  return context;
+};
 ```
 
 ## Exercício 06 - Página estática 

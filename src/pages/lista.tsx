@@ -16,7 +16,7 @@ export default function Lista() {
 
 	async function getUsersList() {
 		try {
-			const response = await fetch('/api/users');
+			const response = await fetch('http://localhost:8080/api/users');
 			const data = await response.json();
 
 			if (!response.ok) throw new Error('Erro ao obter os dados');
