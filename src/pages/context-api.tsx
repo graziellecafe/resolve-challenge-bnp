@@ -7,68 +7,52 @@
  * - Disparar as mensagens a partir dos botões abaixo
  */
 
-import styles from '@/styles/context-api.module.css';
-import { IToastMessage } from '@/types/toast-message';
-import { ToastMessage } from '@/components/ToastMessage';
+/* O Context API é uma funcionalidade do React que permite o compartilhamento de dados 
+entre componentes sem a necessidade de passar explicitamente esses dados através de props 
+em cada nível da árvore de componentes. Em Next.js, que é um framework React para renderização 
+do lado do servidor (Server-Side Rendering - SSR) e renderização do lado do cliente (Client-Side Rendering - CSR),
+ o Context API pode ser utilizado da mesma forma que em projetos React tradicionais. */
+
+ import styles from "@/styles/context-api.module.css";
+import { ToastMessage } from "@/components/ToastMessage";
+import { useToast } from "@/contexts/toast.context";
+import { faker } from "@faker-js/faker";
 
 export default function ContextApi() {
+  const { messages, addMessage } = useToast();
+  function handleSuccessButtonClick() {
+    addMessage({
+      id: faker.string.uuid(),
+      message: "Mensagem de sucesso",
+      type: "success",
+    });
+  }
 
-	
-	const messages: Array<IToastMessage> = [
-		{
-			id: '1',
-			message: 'Mensagem de sucesso',
-			type: 'success',
-		},
-		{
-			id: '2',
-			message: 'Mensagem de erro',
-			type: 'error',
-		},
-	];
+  function handleErrorButtonClick() {
+    addMessage({
+      id: faker.string.uuid(),
+      message: "Mensagem de erro",
+      type: "error",
+    });
+  }
 
-	function handleSuccessButtonClick() {
-		alert('Method: handleSuccessButtonClick not implemented');
-	}
+  return (
+    <>
+      <div className={styles.container}>
+        <button type="button" onClick={handleSuccessButtonClick}>
+          Disparar mensagem de sucesso
+        </button>
+        <button type="button" onClick={handleErrorButtonClick}>
+          Disparar mensagem de erro
+        </button>
+      </div>
 
-	function handleErrorButtonClick() {
-		alert('Method: handleErrorButtonClick not implemented');
-	}
-
-	/* function handleSuccessButtonClick() {
-	addMessage({
-		id: faker.string.uuid(),
-		message: "Mensagem de sucesso",
-		type: "success",
-		});
-	}
-
-	function handleErrorButtonClick() {
-	  addMessage({
-		id: faker.string.uuid(),
-		message: "Mensagem de erro",
-		type: "error",
-	  });
-	}
-	
-	*/
-
-	return (
-		<>
-			<div className={styles.container}>
-				<button type="button" onClick={handleSuccessButtonClick}>
-					Disparar mensagem de sucesso
-				</button>
-				<button type="button" onClick={handleErrorButtonClick}>
-					Disparar mensagem de erro
-				</button>
-			</div>
-
-			<div className={styles['toast-container']}>
-				{messages.map((message) => (
-					<ToastMessage key={message.id} content={message} />
-				))}
-			</div>
-		</>
-	);
+      <div className={styles["toast-container"]}>
+        {messages.map((message) => (
+          <ToastMessage key={message.id} content={message} />
+        ))}
+      </div>
+    </>
+  );
 }
+
