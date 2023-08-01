@@ -45,7 +45,7 @@ export default function Form() {
           <input
             type="text"
             placeholder="Name"
-            style={{ border: errors.name ? "1px solid red" : "none" }}
+            style={{ border: errors.name ? "2px solid red" : "none" }}
             {...register("name", { required: true })}
           />
           {errors.name && (
@@ -62,7 +62,7 @@ export default function Form() {
           <input
             type="email"
             placeholder="E-mail"
-            style={{ border: errors.email ? "1px solid red" : "none" }}
+            style={{ border: errors.email ? "2px solid red" : "none" }}
             {...register("email", { required: true })}
           />
           {errors.email && (
