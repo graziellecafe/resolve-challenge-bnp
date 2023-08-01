@@ -7,6 +7,13 @@
  * - A página deve ser atualizada a cada 1 minuto
  */
 
+
+/* Em React, uma página estática refere-se a um componente React que representa 
+o conteúdo e o layout de uma página que não muda 
+com o tempo ou não depende de dados dinâmicos. 
+Em outras palavras, é uma página que não requer interação do usuário 
+ou chamadas a APIs externas para renderizar seu conteúdo.*/
+
 import { GetStaticProps } from "next";
 import { ICity } from "@/types/city.d";
 import styles from "@/styles/lista.module.css";
